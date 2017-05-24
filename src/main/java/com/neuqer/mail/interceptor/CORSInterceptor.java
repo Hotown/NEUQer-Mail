@@ -1,5 +1,6 @@
 package com.neuqer.mail.interceptor;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by Hotown on 17/5/23.
  */
+@Component
 public class CORSInterceptor implements HandlerInterceptor {
 
     @Override

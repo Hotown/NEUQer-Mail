@@ -10,4 +10,18 @@
         <result column="created_at" property="createdAt" jdbcType="BIGINT"/>
         <result column="updated_at" property="updatedAt" jdbcType="BIGINT"/>
     </resultMap>
+    <select id="getGroupById" resultType="com.neuqer.mail.model.Group">
+        SELECT *
+        FROM groups
+        WHERE id = #{id}
+    </select>
+
+    <select id="fuzzySearch" resultType="com.neuqer.mail.domain.MobileRemark">
+        SELECT DISTINCT mobiles.mobile,mobile_group.remark
+        FROM mobiles,mobile_group
+        WHERE mobile_group.group_id = #{groupId}
+         AND mobile_group.mobile_id = mobiles.id
+         AND (mobiles.mobile LIKE #{str}
+          OR mobile_group.remark LIKE #{str})
+    </select>
 </mapper>

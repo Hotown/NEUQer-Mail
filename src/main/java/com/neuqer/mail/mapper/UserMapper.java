@@ -3,14 +3,14 @@ package com.neuqer.mail.mapper;
 import com.neuqer.mail.model.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.common.MySqlMapper;
 
 /**
  * Created by Hotown on 17/5/14.
  */
 @Mapper
 public interface UserMapper extends MyMapper<User> {
+    User getUserById(@Param("id")Long id);
+
     User getUserByMobile(@Param("mobile") String mobile);
 
     int updateNickname(@Param("userId") long userId, @Param("nickname") String nickname);

@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by Hotown on 17/5/14.
  */
 @Table(name = "groups")
-public class Group implements BaseModel{
+public class Group {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +20,9 @@ public class Group implements BaseModel{
 
     @Column(name = "updated_at")
     private Long updatedAt;
+
+    @Column(name = "user_id")
+    private Long userId;
 
     public Long getId() {
         return id;
@@ -51,5 +54,24 @@ public class Group implements BaseModel{
 
     public void setUpdatedAt(Long updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    @Override
+    public String toString() {
+        return "Group{" +
+                "id=" + id +
+                ", groupName='" + groupName + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", userId=" + userId +
+                '}';
     }
 }

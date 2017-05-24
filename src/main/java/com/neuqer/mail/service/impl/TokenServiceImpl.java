@@ -4,6 +4,7 @@ import com.neuqer.mail.exception.Auth.NeedLoginException;
 import com.neuqer.mail.exception.Auth.TokenExpiredException;
 import com.neuqer.mail.exception.BaseException;
 import com.neuqer.mail.mapper.TokenMapper;
+import com.neuqer.mail.mapper.UserMapper;
 import com.neuqer.mail.model.Token;
 import com.neuqer.mail.model.User;
 import com.neuqer.mail.service.TokenService;
@@ -23,7 +24,7 @@ public class TokenServiceImpl extends BaseServiceImpl<Token, Long> implements To
     private TokenMapper tokenMapper;
 
     @Autowired
-    private UserService userService;
+    private UserMapper userMapper;
 
     private final static long EXPIRE_TIME = 3600000;
 
@@ -72,6 +73,8 @@ public class TokenServiceImpl extends BaseServiceImpl<Token, Long> implements To
             throw new TokenExpiredException();
         }
 
-        return userService.selectByPrimaryKey(token.getUserId());
+        Long userId = token.getUserId();
+        User user = userMapper.getUserById(userId);
+        return user;
     }
 }
