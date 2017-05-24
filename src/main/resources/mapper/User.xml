@@ -17,24 +17,24 @@
 
     <select id="getUserByMobile" resultType="com.neuqer.mail.model.User">
         SELECT *
-          FROM users
+          FROM user
         WHERE mobile = #{mobile}
     </select>
 
     <update id="updateNickname">
-        UPDATE users SET
+        UPDATE user SET
         nickname = #{nickname}
         WHERE id = #{userId}
     </update>
 
     <update id="updateUserAvatar">
-        UPDATE users SET
+        UPDATE user SET
         avatar = #{url}
         WHERE id = #{userId}
     </update>
 
     <update id="updatePassword">
-        UPDATE users SET
+        UPDATE user SET
         password = #{password}
         WHERE id = #{userId}
     </update>

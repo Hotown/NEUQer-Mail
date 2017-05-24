@@ -11,7 +11,7 @@
         <property name="endingDelimiter" value="`"/>
 
         <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
-            <property name="mappers" value="com.neuqer.mail.mapper.MyMapper"/>
+            <property name="mappers" value="com.neuqer.mail.common.MyMapper"/>
         </plugin>
 
         <jdbcConnection driverClass="${druid.driver-class}"

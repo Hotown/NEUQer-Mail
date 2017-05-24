@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * Created by Hotown on 17/5/23.
  */
 @Configuration
-@MapperScan("com.ickkey.nokey.mapper")
+@MapperScan("com.neuqer.mail.mapper")
 @AutoConfigureAfter(MyBatisConfig.class)
 public class MyBatisMapperScannerConfig {
     public MapperScannerConfigurer mapperScannerConfigurer(){

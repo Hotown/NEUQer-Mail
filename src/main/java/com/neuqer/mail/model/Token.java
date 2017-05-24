@@ -13,20 +13,16 @@ public class Token implements BaseModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id")
     private Long userId;
 
     private String token;
 
     private Integer client;
 
-    @Column(name = "created_at")
     private Long createdAt;
 
-    @Column(name = "updated_at")
     private Long updatedAt;
 
-    @Column(name = "expired_at")
     private Long expiredAt;
 
     public Long getId() {

@@ -5,6 +5,7 @@ import com.neuqer.mail.common.Response;
 import com.neuqer.mail.dto.request.LoginRequest;
 import com.neuqer.mail.dto.request.RegisterRequest;
 import com.neuqer.mail.dto.response.LoginResponse;
+import com.neuqer.mail.exception.Auth.NeedLoginException;
 import com.neuqer.mail.exception.BadRequestException;
 import com.neuqer.mail.exception.BaseException;
 import com.neuqer.mail.exception.UnknownException;
@@ -31,15 +32,16 @@ public class UserController {
     private UserService userService;
 
     @ResponseBody
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    @RequestMapping(path = "/test", method = RequestMethod.GET)
     public Response test() {
         User user = new User();
         user.setMobile("15032321389");
-        HashMap<String, BaseModel> data= new HashMap<String, BaseModel>(){{
-            put("user",user);
+
+        HashMap<String, BaseModel> data = new HashMap<String, BaseModel>() {{
+            put("user", user);
         }};
 
-        return new Response(0,data);
+        return new Response(0, data);
     }
 
     /**
@@ -70,7 +72,7 @@ public class UserController {
      * @throws BaseException
      */
     @ResponseBody
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(path = "/login", method = RequestMethod.POST)
     public Response login(@RequestBody @Valid LoginRequest request) throws BaseException {
         String mobile = request.getMobile();
         String pwd = request.getPassword();
@@ -80,14 +82,38 @@ public class UserController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    @RequestMapping(path = "/logout", method = RequestMethod.POST)
+    public Response logout(HttpServletRequest request) throws BaseException {
+        User user = (User) request.getAttribute("user");
+
+        if(!userService.logout(user.getId())) {
+            throw new UnknownException();
+        }
+
+        return new Response(0);
+    }
+
+
+    /**
+     * 查看个人信息
+     *
+     * @param request
+     * @return
+     * @throws BaseException
+     */
+    @ResponseBody
+    @RequestMapping(path = "/info", method = RequestMethod.GET)
     public Response getUserInfo(HttpServletRequest request) throws BaseException {
         User user = (User) request.getAttribute("user");
 
-        user.setPassword(null);
+        if (user != null) {
+            user.setPassword(null);
+        } else {
+            throw new UnknownException();
+        }
 
-        HashMap<String, BaseModel> data = new HashMap<String, BaseModel>(){{
-            put("user",user);
+        HashMap<String, BaseModel> data = new HashMap<String, BaseModel>() {{
+            put("user", user);
         }};
 
         return new Response(0, data);
@@ -102,7 +128,7 @@ public class UserController {
      * @throws BaseException
      */
     @ResponseBody
-    @RequestMapping(value = "/{userId}/nickname", method = RequestMethod.POST)
+    @RequestMapping(path = "/{userId}/nickname", method = RequestMethod.POST)
     public Response updateNickname(@RequestBody JSONObject request, HttpServletRequest httpServletRequest) throws BaseException {
         String nickname = request.getString("nickname");
         if (nickname == null) {
@@ -126,7 +152,7 @@ public class UserController {
      * @throws BaseException
      */
     @ResponseBody
-    @RequestMapping(value = "/{userId}/password", method = RequestMethod.POST)
+    @RequestMapping(path = "/{userId}/password", method = RequestMethod.POST)
     public Response updateUserPassword(@RequestBody JSONObject request, HttpServletRequest httpServletRequest) throws BaseException {
         String originPwd = request.getString("password");
         String pwd = request.getString("newPassword");

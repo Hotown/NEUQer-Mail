@@ -5,25 +5,24 @@ import javax.persistence.*;
 /**
  * Created by Hotown on 17/5/22.
  */
-@Table(name = "logs")
+@Table(name = "log")
 public class Log implements BaseModel {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @Column(name = "user_id")
-    private long userId;
+    private Long userId;
 
     @Column(name = "mobile_id")
-    private long mobileId;
+    private Long mobileId;
 
     private String message;
 
     @Column(name = "sended_at")
-    private long sendedAt;
+    private Long sendedAt;
 
-    private boolean status;
+    private Boolean status;
 
     @Column(name = "created_at")
     private Long createdAt;
@@ -32,29 +31,29 @@ public class Log implements BaseModel {
     private Long updatedAt;
 
     @Column(name = "is_deleted")
-    private boolean isDeleted;
+    private Boolean isDeleted;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public long getMobileId() {
+    public Long getMobileId() {
         return mobileId;
     }
 
-    public void setMobileId(long mobileId) {
+    public void setMobileId(Long mobileId) {
         this.mobileId = mobileId;
     }
 
@@ -66,19 +65,19 @@ public class Log implements BaseModel {
         this.message = message;
     }
 
-    public long getSendedAt() {
+    public Long getSendedAt() {
         return sendedAt;
     }
 
-    public void setSendedAt(long sendedAt) {
+    public void setSendedAt(Long sendedAt) {
         this.sendedAt = sendedAt;
     }
 
-    public boolean isStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 
@@ -98,11 +97,11 @@ public class Log implements BaseModel {
         this.updatedAt = updatedAt;
     }
 
-    public boolean isDeleted() {
+    public Boolean getDeleted() {
         return isDeleted;
     }
 
-    public void setDeleted(boolean deleted) {
+    public void setDeleted(Boolean deleted) {
         isDeleted = deleted;
     }
 }

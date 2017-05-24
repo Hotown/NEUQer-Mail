@@ -54,7 +54,7 @@ public class TokenServiceImpl extends BaseServiceImpl<Token, Long> implements To
             token.setExpiredAt(currentTime + EXPIRE_TIME);
             token.setClient(client);
 
-            save(token);
+            updateByPrimaryKey(token);
         }
         return token;
     }

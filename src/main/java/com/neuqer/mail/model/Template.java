@@ -1,22 +1,20 @@
 package com.neuqer.mail.model;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by Hotown on 17/5/22.
  */
+@Table(name = "template")
 public class Template implements BaseModel {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "user_id")
-    private long userId;
+    private Long userId;
 
     @Column(name = "temp_name")
     private String tempName;
@@ -29,19 +27,19 @@ public class Template implements BaseModel {
     @Column(name = "updated_at")
     private Long updatedAt;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

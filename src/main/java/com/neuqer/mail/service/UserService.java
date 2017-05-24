@@ -14,6 +14,8 @@ public interface UserService extends BaseService<User, Long> {
 
     LoginResponse login(String mobile, String password) throws BaseException;
 
+    boolean logout(long userId) throws BaseException;
+
     boolean updateNickname(long userId, String nickname) throws BaseException;
 
     boolean updatePassword(long userId, String password) throws BaseException;

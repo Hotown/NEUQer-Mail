@@ -2,6 +2,7 @@ package com.neuqer.mail.service.impl;
 
 import com.neuqer.mail.dto.response.LoginResponse;
 import com.neuqer.mail.exception.BaseException;
+import com.neuqer.mail.exception.UnknownException;
 import com.neuqer.mail.exception.User.MobileExistedException;
 import com.neuqer.mail.exception.User.PasswordErrorException;
 import com.neuqer.mail.exception.User.UserNotExsitedException;
@@ -70,6 +71,20 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
         user.setPassword(null);
 
         return new LoginResponse(user, token);
+    }
+
+    @Override
+    public boolean logout(long userId) throws BaseException {
+        Token token = tokenService.getTokenByUserId(userId);
+
+        if(token.getToken() != null || !token.getToken().equals("")) {
+            token.setToken("");
+            token.setUpdatedAt(Utils.createTimeStamp());
+        } else {
+            throw new UnknownException("user is already logout.");
+        }
+
+        return tokenService.updateByPrimaryKey(token) == 1;
     }
 
     @Override

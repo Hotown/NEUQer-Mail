@@ -5,8 +5,9 @@ import javax.persistence.*;
 /**
  * Created by Hotown on 17/5/14.
  */
-@Table(name = "users")
+@Table(name = "user")
 public class User implements BaseModel {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,18 +16,17 @@ public class User implements BaseModel {
     /**
      * 手机,作为登录名
      */
-    @Column(name = "mobile")
     private String mobile;
-
-    /**
-     * 邮箱
-     */
-    private String email;
 
     /**
      * 密码
      */
     private String password;
+
+    /**
+     * 邮箱
+     */
+    private String email;
 
     /**
      * 昵称
@@ -41,10 +41,8 @@ public class User implements BaseModel {
     /**
      * 时间戳
      */
-    @Column(name = "created_at")
     private Long createdAt;
 
-    @Column(name = "updated_at")
     private Long updatedAt;
 
     public Long getId() {
@@ -109,5 +107,19 @@ public class User implements BaseModel {
 
     public void setUpdatedAt(Long updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", mobile='" + mobile + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }

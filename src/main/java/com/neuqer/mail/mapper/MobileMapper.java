@@ -1,5 +1,6 @@
 package com.neuqer.mail.mapper;
 
+import com.neuqer.mail.common.MyMapper;
 import com.neuqer.mail.model.Mobile;
 import org.apache.ibatis.annotations.Mapper;
 

@@ -23,12 +23,4 @@ public interface BaseService<T, PK extends Serializable> {
      * @return
      */
     int updateByPrimaryKey(T record);
-
-    /**
-     * 根据主键更新不为null的值
-     *
-     * @param record
-     * @return
-     */
-
 }

@@ -1,10 +1,9 @@
 package com.neuqer.mail.mapper;
 
+import com.neuqer.mail.common.MyMapper;
 import com.neuqer.mail.model.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.common.MySqlMapper;
 
 /**
  * Created by Hotown on 17/5/14.
