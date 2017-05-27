@@ -6,7 +6,7 @@ package com.neuqer.mail.exception;
  */
 public class UnknownException extends BaseException {
     public UnknownException() {
-        super.setCode(10000);
+        super.setCode(10001);
     }
     public UnknownException(String message) {
         super.setCode(10001);

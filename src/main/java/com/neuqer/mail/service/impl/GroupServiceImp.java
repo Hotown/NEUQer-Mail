@@ -3,6 +3,7 @@ package com.neuqer.mail.service.impl;
 import com.neuqer.mail.domain.MobileRemark;
 import com.neuqer.mail.exception.BaseException;
 import com.neuqer.mail.exception.Group.GroupNotExistException;
+import com.neuqer.mail.exception.Group.NullKeyException;
 import com.neuqer.mail.exception.Mobile.IllegalMobileException;
 import com.neuqer.mail.exception.Mobile.MobileExistException;
 import com.neuqer.mail.exception.Mobile.MobileNotExistException;
@@ -78,6 +79,14 @@ public class GroupServiceImp implements GroupService{
 
     @Override
     public void addMobile(Long groupId, String mobile, String remark) throws BaseException {
+
+        if (mobile == null){
+            throw new NullKeyException("mobile");
+        }
+
+        if(remark == null){
+            remark = mobile;
+        }
 
         if(!Validator.validateMobile(mobile)){
             throw new IllegalMobileException();

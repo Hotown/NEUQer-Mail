@@ -7,7 +7,7 @@ import com.neuqer.mail.exception.BaseException;
  */
 public class MobileExistException extends BaseException {
     public MobileExistException(String mobile){
-        super.setCode(30002);
+        super.setCode(60002);
         super.setMessage(mobile+"exist in this group!");
     }
 }

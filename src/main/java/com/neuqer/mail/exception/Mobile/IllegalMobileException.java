@@ -7,7 +7,7 @@ import com.neuqer.mail.exception.BaseException;
  */
 public class IllegalMobileException extends BaseException {
     public IllegalMobileException() {
-        super.setCode(30001);
+        super.setCode(60001);
         super.setMessage("Illegal mobile");
     }
 }
