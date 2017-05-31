@@ -81,6 +81,13 @@ public class UserController {
                 userService.login(mobile, pwd));
     }
 
+    /**
+     * 登出
+     *
+     * @param request
+     * @return
+     * @throws BaseException
+     */
     @ResponseBody
     @RequestMapping(path = "/logout", method = RequestMethod.POST)
     public Response logout(HttpServletRequest request) throws BaseException {

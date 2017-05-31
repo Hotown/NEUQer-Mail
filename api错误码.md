@@ -1,0 +1,12 @@
+错误码|错误方法名|错误信息
+-----|---------|---------
+Global|
+10001|UnknownException|未知错误
+10002|BadRequestException|request参数错误
+User|
+20001|UserNotExistedException|用户不存在
+20002|PasswordErrorException|密码错误
+20003|MobileExistException|手机号存在
+Auth|
+30001|NeedLoginException|未登录
+30002|TokenExpiredException|token过期

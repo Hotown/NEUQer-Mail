@@ -7,6 +7,6 @@ import com.neuqer.mail.exception.BaseException;
  */
 public class PasswordErrorException extends BaseException {
     public PasswordErrorException() {
-        super.setCode(20003);
+        super.setCode(20002);
     }
 }

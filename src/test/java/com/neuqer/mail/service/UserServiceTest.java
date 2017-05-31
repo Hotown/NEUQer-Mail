@@ -19,7 +19,7 @@ public class UserServiceTest extends BaseTest {
 
     @Test
     public void registerTest() throws BaseException{
-        String mobile = "15032321388";
+        String mobile = "15032321389";
         String password = "neuqer2016";
         userService.registerUser(mobile, password);
 

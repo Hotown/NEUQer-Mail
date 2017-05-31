@@ -5,8 +5,8 @@ import com.neuqer.mail.exception.BaseException;
 /**
  * Created by Hotown on 17/5/18.
  */
-public class UserNotExsitedException extends BaseException {
-    public UserNotExsitedException() {
-        super.setCode(20002);
+public class UserNotExistException extends BaseException {
+    public UserNotExistException() {
+        super.setCode(20001);
     }
 }

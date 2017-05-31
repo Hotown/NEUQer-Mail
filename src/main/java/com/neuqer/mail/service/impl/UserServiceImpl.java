@@ -5,7 +5,7 @@ import com.neuqer.mail.exception.BaseException;
 import com.neuqer.mail.exception.UnknownException;
 import com.neuqer.mail.exception.User.MobileExistedException;
 import com.neuqer.mail.exception.User.PasswordErrorException;
-import com.neuqer.mail.exception.User.UserNotExsitedException;
+import com.neuqer.mail.exception.User.UserNotExistException;
 import com.neuqer.mail.mapper.UserMapper;
 import com.neuqer.mail.model.Token;
 import com.neuqer.mail.model.User;
@@ -54,7 +54,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
         User user = userMapper.getUserByMobile(mobile);
 
         if (user == null) {
-            throw new UserNotExsitedException();
+            throw new UserNotExistException();
         }
 
         // 密码验证

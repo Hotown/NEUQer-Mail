@@ -7,6 +7,6 @@ import com.neuqer.mail.exception.BaseException;
  */
 public class TokenExpiredException extends BaseException {
     public TokenExpiredException() {
-        super.setCode(20002);
+        super.setCode(30002);
     }
 }

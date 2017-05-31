@@ -7,6 +7,6 @@ import com.neuqer.mail.exception.BaseException;
  */
 public class MobileExistedException extends BaseException {
     public MobileExistedException() {
-        super.setCode(20004);
+        super.setCode(20003);
     }
 }

@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @MapperScan("com.neuqer.mail.mapper")
 @AutoConfigureAfter(MyBatisConfig.class)
 public class MyBatisMapperScannerConfig {
-    public MapperScannerConfigurer mapperScannerConfigurer(){
+    public MapperScannerConfigurer mapperScannerConfigurer() {
         /**
          * 自动扫描接口文件，和mapper配置文件对应
          */

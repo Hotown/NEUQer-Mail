@@ -10,7 +10,7 @@ public interface BaseService<T, PK extends Serializable> {
 
     T selectByPrimaryKey(PK entityId);
 
-    T selectOne(T record);
+    List<T> select(T record);
 
     int deleteByPrimaryKey(PK entityId);
 
@@ -23,4 +23,12 @@ public interface BaseService<T, PK extends Serializable> {
      * @return
      */
     int updateByPrimaryKey(T record);
+
+    /**
+     * 根据主键更新属性不为null的值
+     *
+     * @param record
+     * @return
+     */
+    int updateByPrimaryKeySelective(T record);
 }

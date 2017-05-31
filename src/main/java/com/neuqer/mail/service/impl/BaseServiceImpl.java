@@ -24,8 +24,8 @@ public abstract class BaseServiceImpl<T, PK extends Serializable> implements Bas
     }
 
     @Override
-    public T selectOne(T record) {
-        return mapper.selectOne(record);
+    public List<T> select(T record) {
+        return mapper.select(record);
     }
 
     @Override
@@ -43,4 +43,8 @@ public abstract class BaseServiceImpl<T, PK extends Serializable> implements Bas
         return mapper.updateByPrimaryKey(record);
     }
 
+    @Override
+    public int updateByPrimaryKeySelective(T record) {
+        return mapper.updateByPrimaryKeySelective(record);
+    }
 }

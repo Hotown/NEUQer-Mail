@@ -7,6 +7,6 @@ import com.neuqer.mail.exception.BaseException;
  */
 public class NeedLoginException extends BaseException {
     public NeedLoginException() {
-        super.setCode(20001);
+        super.setCode(30001);
     }
 }
