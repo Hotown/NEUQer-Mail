@@ -15,6 +15,11 @@
         <result column="updated_at" property="updatedAt" jdbcType="BIGINT"/>
     </resultMap>
 
+    <select id="getUserById" resultType="com.neuqer.mail.model.User">
+        SELECT *
+        FROM user
+        WHERE id = #{id}
+    </select>
     <select id="getUserByMobile" resultType="com.neuqer.mail.model.User">
         SELECT *
           FROM user

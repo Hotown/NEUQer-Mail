@@ -10,29 +10,46 @@ import javax.persistence.Table;
 public class MobileGroup implements BaseModel {
 
     @Column(name = "mobile_id")
-    private long mobileId;
+    private Long mobileId;
 
     @Column(name = "group_id")
-    private long groupId;
+    private Long groupId;
 
     /**
      * 备注
      */
     private String remark;
 
-    public long getMobileId() {
+    public Long getMobileId() {
         return mobileId;
     }
 
-    public void setMobileId(long mobileId) {
+    public void setMobileId(Long mobileId) {
         this.mobileId = mobileId;
     }
 
-    public long getGroupId() {
+    public Long getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(long groupId) {
+    public void setGroupId(Long groupId) {
         this.groupId = groupId;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    @Override
+    public String toString() {
+        return "MobileGroup{" +
+                "mobileId=" + mobileId +
+                ", groupId=" + groupId +
+                ", remark='" + remark + '\'' +
+                '}';
     }
 }

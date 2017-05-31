@@ -10,6 +10,8 @@ import org.apache.ibatis.annotations.Param;
  */
 @Mapper
 public interface UserMapper extends MyMapper<User> {
+    User getUserById(@Param("id")Long id);
+
     User getUserByMobile(@Param("mobile") String mobile);
 
     int updateNickname(@Param("userId") long userId, @Param("nickname") String nickname);

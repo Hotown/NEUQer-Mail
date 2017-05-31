@@ -33,4 +33,11 @@ public class UserMapperTest extends BaseTest {
         String mobile = "15032321389";
         long userId = 3;
     }
+
+    @Test
+    public void selectTest(){
+        Long userId = new Long(5);
+        User user = userMapper.selectByPrimaryKey(userId);
+        System.out.print(user);
+    }
 }

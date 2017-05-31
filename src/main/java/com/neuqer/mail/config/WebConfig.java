@@ -10,22 +10,25 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
- * Created by Hotown on 17/5/24.
+ * Created by dgy on 17-5-24.
  */
 @Configuration
 @EnableWebMvc
-public class WebConfig extends WebMvcConfigurerAdapter{
+public class WebConfig extends WebMvcConfigurerAdapter {
+
+    private TokenInterceptor tokenInterceptor;
+    private CORSInterceptor corsInterceptor;
 
     @Autowired
-    TokenService tokenService;
+    public WebConfig(TokenInterceptor tokenInterceptor, CORSInterceptor corsInterceptor) {
+        this.corsInterceptor = corsInterceptor;
+        this.tokenInterceptor = tokenInterceptor;
+    }
 
-    @Override
     public void addInterceptors(InterceptorRegistry registry) {
-
-        registry.addInterceptor(new CORSInterceptor()).addPathPatterns("/**");
-        registry.addInterceptor(new TokenInterceptor(tokenService))
-                .addPathPatterns("/**");
-
+        registry.addInterceptor(corsInterceptor);
+        registry.addInterceptor(tokenInterceptor);
         super.addInterceptors(registry);
     }
 }
+

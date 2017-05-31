@@ -73,6 +73,7 @@ public class MyBatisConfig {
          * 扫描Entity包路径
          */
         sqlSessionFactoryBean.setTypeAliasesPackage("com.neuqer.mail.model");
+
         /**
          * 扫描mybatis配置文件，mapper文件
          */

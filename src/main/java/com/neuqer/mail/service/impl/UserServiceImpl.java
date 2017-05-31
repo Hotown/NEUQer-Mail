@@ -77,7 +77,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
     public boolean logout(long userId) throws BaseException {
         Token token = tokenService.getTokenByUserId(userId);
 
-        if(token.getToken() != null || !token.getToken().equals("")) {
+        if (token.getToken() != null || !token.getToken().equals("")) {
             token.setToken("");
             token.setUpdatedAt(Utils.createTimeStamp());
         } else {

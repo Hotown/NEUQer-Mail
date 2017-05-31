@@ -3,7 +3,7 @@ package com.neuqer.mail.exception;
 /**
  * Created by Hotown on 17/5/16.
  */
-public class BaseException extends Exception{
+public class BaseException extends RuntimeException{
     private int code;
 
     private String message;

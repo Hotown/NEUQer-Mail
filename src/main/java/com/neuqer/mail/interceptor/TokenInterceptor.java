@@ -5,6 +5,7 @@ import com.neuqer.mail.exception.UnknownException;
 import com.neuqer.mail.model.User;
 import com.neuqer.mail.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 /**
  * Created by Hotown on 17/5/23.
  */
+@Component
 public class TokenInterceptor implements HandlerInterceptor {
 
     @Autowired

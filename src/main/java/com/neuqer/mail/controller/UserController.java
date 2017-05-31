@@ -31,19 +31,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @ResponseBody
-    @RequestMapping(path = "/test", method = RequestMethod.GET)
-    public Response test() {
-        User user = new User();
-        user.setMobile("15032321389");
-
-        HashMap<String, BaseModel> data = new HashMap<String, BaseModel>() {{
-            put("user", user);
-        }};
-
-        return new Response(0, data);
-    }
-
     /**
      * 用户注册
      *

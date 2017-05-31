@@ -26,4 +26,10 @@ public class UserServiceTest extends BaseTest {
         System.out.println("Success");
 
     }
+    @Test
+    public void selectTest(){
+        Long userId = new Long(5);
+        User user = userService.selectByPrimaryKey(userId);
+        System.out.print(user);
+    }
 }
