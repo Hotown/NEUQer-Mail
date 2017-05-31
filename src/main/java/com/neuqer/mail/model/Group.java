@@ -5,7 +5,7 @@ import javax.persistence.*;
 /**
  * Created by Hotown on 17/5/14.
  */
-@Table(name = "groups")
+@Table(name = "group")
 public class Group {
     @Id
     @Column(name = "id")

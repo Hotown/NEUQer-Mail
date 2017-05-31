@@ -19,5 +19,5 @@ public interface GroupService{
     void deleteMobile(Long groupId,String mobile)throws BaseException;
     String getGroupNameById(Long groupId)throws BaseException;
     List<MobileRemark> getGroupInfo(Long groupId)throws BaseException;
-    List<MobileRemark> fuzzySearch(Long groupId,String str)throws BaseException;
+    List<MobileRemark> fuzzySearch(Long groupId,String str,int pageNum,int pageSize)throws BaseException;
 }

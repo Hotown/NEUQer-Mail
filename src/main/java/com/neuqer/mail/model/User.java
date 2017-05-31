@@ -5,7 +5,7 @@ import javax.persistence.*;
 /**
  * Created by Hotown on 17/5/14.
  */
-@Table(name = "users")
+@Table(name = "user")
 public class User implements BaseModel {
     @Id
     @Column(name = "id")

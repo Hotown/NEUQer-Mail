@@ -1,5 +1,6 @@
 package com.neuqer.mail.mapper;
 
+import com.github.pagehelper.PageHelper;
 import com.neuqer.mail.BaseTest;
 import com.neuqer.mail.domain.MobileRemark;
 import org.junit.Test;
@@ -16,8 +17,11 @@ public class GroupMapperTest extends BaseTest{
 
     @Test
     public void fuzzySearchTest(){
-        Long groupId = new Long(3);
-        String str = "%test%";
+        Long groupId = new Long(6);
+        String str = "%156%";
+
+        PageHelper.startPage(3,3);
+
         List<MobileRemark> mobileRemarks = groupMapper.fuzzySearch(str,groupId);
         for (MobileRemark mobileRemark:mobileRemarks){
             System.out.println(mobileRemark);

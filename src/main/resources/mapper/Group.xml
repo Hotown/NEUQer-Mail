@@ -17,11 +17,11 @@
     </select>
 
     <select id="fuzzySearch" resultType="com.neuqer.mail.domain.MobileRemark">
-        SELECT DISTINCT mobiles.mobile,mobile_group.remark
-        FROM mobiles,mobile_group
+        SELECT DISTINCT mobile.mobile,mobile_group.remark
+        FROM mobile,mobile_group
         WHERE mobile_group.group_id = #{groupId}
-         AND mobile_group.mobile_id = mobiles.id
-         AND (mobiles.mobile LIKE #{str}
+         AND mobile_group.mobile_id = mobile.id
+         AND (mobile.mobile LIKE #{str}
           OR mobile_group.remark LIKE #{str})
     </select>
 </mapper>

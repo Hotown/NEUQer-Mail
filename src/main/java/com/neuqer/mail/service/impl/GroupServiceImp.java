@@ -1,5 +1,6 @@
 package com.neuqer.mail.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.neuqer.mail.domain.MobileRemark;
 import com.neuqer.mail.exception.BaseException;
 import com.neuqer.mail.exception.Group.GroupNotExistException;
@@ -185,7 +186,8 @@ public class GroupServiceImp implements GroupService{
     }
 
     @Override
-    public List<MobileRemark> fuzzySearch(Long groupId, String str) throws BaseException {
+    public List<MobileRemark> fuzzySearch(Long groupId, String str, int pageNum, int pageSize) throws BaseException {
+        PageHelper.startPage(pageNum,pageSize);
         str = "%"+str+"%";
         return groupMapper.fuzzySearch(str,groupId);
     }
