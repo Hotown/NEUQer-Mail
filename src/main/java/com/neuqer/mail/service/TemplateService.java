@@ -18,9 +18,11 @@ public interface TemplateService extends BaseService<Template, Long> {
 
     List<Template> getTemplatesByUserId(Long userId) throws BaseException;
 
-    boolean updateTemplateName(Long templateId, String templateName) throws BaseException;
+    boolean updateTemplate(Long templateId, String templateName, String templateContent) throws BaseException;
 
-    boolean updateTemplateContent(Long templateId, String templateContent) throws BaseException;
+//    boolean updateTemplateName(Long templateId, String templateName) throws BaseException;
+//
+//    boolean updateTemplateContent(Long templateId, String templateContent) throws BaseException;
 
     boolean deleteTemplate(Long templateId, Long userId) throws BaseException;
 }

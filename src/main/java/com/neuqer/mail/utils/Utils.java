@@ -1,5 +1,6 @@
 package com.neuqer.mail.utils;
 
+import com.neuqer.mail.common.ExcelCommon;
 import com.neuqer.mail.controller.GroupController;
 import com.neuqer.mail.domain.ExcelInfo;
 import com.neuqer.mail.domain.MobileRemark;
@@ -33,12 +34,28 @@ public class Utils {
     public static Long createTimeStamp() {
         return System.currentTimeMillis();
     }
+
     public static String createUUID() {
-        return UUID.randomUUID().toString().replace("-","");
+        return UUID.randomUUID().toString().replace("-", "");
     }
 
-    public static List<ExcelInfo> readExcel(String fileName, String suffixName){
-        switch (suffixName){
+    /**
+     * 获取路径中的后缀
+     * @param path
+     * @return
+     */
+    public static String getPostfix(String path) {
+        if (path == null || ExcelCommon.EMPTY.equals(path)) {
+            return ExcelCommon.EMPTY;
+        }
+        if (path.contains(ExcelCommon.POINT)) {
+            return path.substring(path.lastIndexOf(ExcelCommon.POINT) + 1, path.length());
+        }
+        return ExcelCommon.EMPTY;
+    }
+
+    public static List<ExcelInfo> readExcel(String fileName, String suffixName) {
+        switch (suffixName) {
             case ".xlsx":
                 return readExcelWithXssf(fileName);
             case ".xls":
@@ -47,33 +64,33 @@ public class Utils {
                 throw new ErrorFileTypeException();
         }
     }
-    public static List<ExcelInfo> readExcelWithXssf(String fileName)throws BaseException{
-        try
-        {
-            InputStream ins =new FileInputStream(new File(fileName));
+
+    public static List<ExcelInfo> readExcelWithXssf(String fileName) throws BaseException {
+        try {
+            InputStream ins = new FileInputStream(new File(fileName));
             @SuppressWarnings("resource")
             XSSFWorkbook wb = new XSSFWorkbook(ins);
             ins.close();
 
             XSSFSheet sheet = wb.getSheetAt(0);
-            if(sheet == null){
+            if (sheet == null) {
                 throw new UnknownException("sheet is null");
             }
             List<ExcelInfo> excelInfoList = new ArrayList<>();
             XSSFCell cell = null;
 
-            for (int i = sheet.getFirstRowNum()+1;i<=sheet.getLastRowNum();i++){
+            for (int i = sheet.getFirstRowNum() + 1; i <= sheet.getLastRowNum(); i++) {
                 XSSFRow row = sheet.getRow(i);
-                if(row == null){
+                if (row == null) {
                     continue;
                 }
                 ExcelInfo excelInfo = new ExcelInfo();
                 cell = row.getCell(0);
 
-                if (cell == null){
+                if (cell == null) {
                     continue;
                 }
-                switch (cell.getCellType()){
+                switch (cell.getCellType()) {
                     case XSSFCell.CELL_TYPE_NUMERIC:
                         double mobile = cell.getNumericCellValue();
                         excelInfo.setMobile(new DecimalFormat("#").format(mobile));
@@ -85,10 +102,10 @@ public class Utils {
                         excelInfo.setMobile(cell.toString());
                 }
                 cell = row.getCell(1);
-                if(cell == null){
+                if (cell == null) {
                     excelInfo.setRemark(excelInfo.getMobile());
-                }else {
-                    switch (cell.getCellType()){
+                } else {
+                    switch (cell.getCellType()) {
                         case XSSFCell.CELL_TYPE_STRING:
                             excelInfo.setRemark(cell.getStringCellValue());
                             break;
@@ -104,37 +121,37 @@ public class Utils {
                 excelInfoList.add(excelInfo);
             }
             return excelInfoList;
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new UnknownException(e.getMessage());
         }
     }
-    public static List<ExcelInfo> readExcelWithHssf(String fileName)throws BaseException{
-        try
-        {
-            InputStream ins =new FileInputStream(new File(fileName));
+
+    public static List<ExcelInfo> readExcelWithHssf(String fileName) throws BaseException {
+        try {
+            InputStream ins = new FileInputStream(new File(fileName));
             @SuppressWarnings("resource")
             HSSFWorkbook wb = new HSSFWorkbook(ins);
             ins.close();
 
             HSSFSheet sheet = wb.getSheetAt(0);
-            if(sheet == null){
+            if (sheet == null) {
                 throw new UnknownException("sheet is null");
             }
             List<ExcelInfo> excelInfoList = new ArrayList<>();
             HSSFCell cell = null;
 
-            for (int i = sheet.getFirstRowNum()+1;i<=sheet.getLastRowNum();i++){
+            for (int i = sheet.getFirstRowNum() + 1; i <= sheet.getLastRowNum(); i++) {
                 HSSFRow row = sheet.getRow(i);
-                if(row == null){
+                if (row == null) {
                     continue;
                 }
                 ExcelInfo excelInfo = new ExcelInfo();
                 cell = row.getCell(0);
 
-                if (cell == null){
+                if (cell == null) {
                     continue;
                 }
-                switch (cell.getCellType()){
+                switch (cell.getCellType()) {
                     case HSSFCell.CELL_TYPE_NUMERIC:
                         double mobile = cell.getNumericCellValue();
                         excelInfo.setMobile(new DecimalFormat("#").format(mobile));
@@ -146,10 +163,10 @@ public class Utils {
                         excelInfo.setMobile(cell.toString());
                 }
                 cell = row.getCell(1);
-                if(cell == null){
+                if (cell == null) {
                     excelInfo.setRemark(excelInfo.getMobile());
-                }else {
-                    switch (cell.getCellType()){
+                } else {
+                    switch (cell.getCellType()) {
                         case HSSFCell.CELL_TYPE_STRING:
                             excelInfo.setRemark(cell.getStringCellValue());
                             break;
@@ -165,7 +182,7 @@ public class Utils {
                 excelInfoList.add(excelInfo);
             }
             return excelInfoList;
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new UnknownException(e.getMessage());
         }
     }

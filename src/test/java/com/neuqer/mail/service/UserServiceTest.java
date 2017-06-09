@@ -2,10 +2,7 @@ package com.neuqer.mail.service;
 
 import com.neuqer.mail.BaseTest;
 import com.neuqer.mail.exception.BaseException;
-import com.neuqer.mail.exception.User.MobileExistedException;
 import com.neuqer.mail.model.User;
-import com.neuqer.mail.utils.EncryptionUtil;
-import com.neuqer.mail.utils.Utils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

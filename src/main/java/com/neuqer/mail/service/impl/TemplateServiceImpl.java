@@ -7,7 +7,6 @@ import com.neuqer.mail.mapper.TemplateMapper;
 import com.neuqer.mail.model.Template;
 import com.neuqer.mail.service.TemplateService;
 import com.neuqer.mail.utils.Utils;
-import org.apache.el.parser.BooleanNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,43 +53,60 @@ public class TemplateServiceImpl extends BaseServiceImpl<Template, Long> impleme
 
     @Override
     public List<Template> getTemplatesByUserId(Long userId) throws BaseException {
-        return select(
-                new Template() {
-                    @Override
-                    public void setUserId(Long userId) {
-                        super.setUserId(userId);
-                    }
-                }
-        );
+        Template template = new Template();
+        template.setUserId(userId);
+        return select(template);
     }
 
     @Override
-    public boolean updateTemplateName(Long templateId, String templateName) throws BaseException {
+    public boolean updateTemplate(Long templateId, String templateName, String templateContent) throws BaseException {
         isTemplateExist(templateId);
 
         Template newTemplate = new Template();
         Long currentTime = Utils.createTimeStamp();
 
         newTemplate.setId(templateId);
-        newTemplate.setTempName(templateName);
+
+        if (templateName != null) {
+            newTemplate.setTempName(templateName);
+        }
+
+        if (templateContent != null) {
+            newTemplate.setContent(templateContent);
+        }
+
         newTemplate.setUpdatedAt(currentTime);
 
         return updateByPrimaryKeySelective(newTemplate) == 1;
     }
 
-    @Override
-    public boolean updateTemplateContent(Long templateId, String templateContent) throws BaseException {
-        isTemplateExist(templateId);
-
-        Template newTemplate = new Template();
-        Long currentTime = Utils.createTimeStamp();
-
-        newTemplate.setId(templateId);
-        newTemplate.setContent(templateContent);
-        newTemplate.setUpdatedAt(currentTime);
-
-        return updateByPrimaryKeySelective(newTemplate) == 1;
-    }
+    //    @Override
+//    public boolean updateTemplateName(Long templateId, String templateName) throws BaseException {
+//        isTemplateExist(templateId);
+//
+//        Template newTemplate = new Template();
+//        Long currentTime = Utils.createTimeStamp();
+//
+//        newTemplate.setId(templateId);
+//        newTemplate.setTempName(templateName);
+//        newTemplate.setUpdatedAt(currentTime);
+//
+//        return updateByPrimaryKeySelective(newTemplate) == 1;
+//    }
+//
+//    @Override
+//    public boolean updateTemplateContent(Long templateId, String templateContent) throws BaseException {
+//        isTemplateExist(templateId);
+//
+//        Template newTemplate = new Template();
+//        Long currentTime = Utils.createTimeStamp();
+//
+//        newTemplate.setId(templateId);
+//        newTemplate.setContent(templateContent);
+//        newTemplate.setUpdatedAt(currentTime);
+//
+//        return updateByPrimaryKeySelective(newTemplate) == 1;
+//    }
 
     @Override
     public boolean deleteTemplate(Long templateId, Long userId) throws BaseException {

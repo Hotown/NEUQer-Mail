@@ -25,6 +25,8 @@ public interface GroupService {
 
     String getGroupNameById(Long groupId) throws BaseException;
 
+    List<Group> getGroupsInfo(Long userId) throws BaseException;
+
     List<MobileRemark> getGroupInfo(Long groupId) throws BaseException;
 
     List<MobileRemark> fuzzySearch(Long groupId, String str, int pageNum, int pageSize) throws BaseException;

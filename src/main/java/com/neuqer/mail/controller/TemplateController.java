@@ -10,12 +10,13 @@ import com.neuqer.mail.model.Template;
 import com.neuqer.mail.model.User;
 import com.neuqer.mail.service.TemplateService;
 import com.neuqer.mail.utils.Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,6 +29,8 @@ public class TemplateController {
 
     @Autowired
     private TemplateService templateService;
+
+    private Logger logger = LoggerFactory.getLogger(TemplateController.class);
 
     /**
      * 获取单个模板信息
@@ -102,43 +105,54 @@ public class TemplateController {
     }
 
 
-    /**
-     * 修改模板名称
-     *
-     * @param tempId
-     * @param request
-     * @return
-     * @throws BaseException
-     */
     @ResponseBody
-    @RequestMapping(path = "/{tid}/name", method = RequestMethod.PUT)
-    public Response updateTemplateName(@PathVariable("tid") Long tempId,
-                                       @RequestBody JSONObject request) throws BaseException {
-        if (!templateService.updateTemplateName(tempId, request.getString("tempName"))) {
-            throw new UnknownException("Update tempName error.");
+    @RequestMapping(path = "/{tid}/info", method = RequestMethod.PUT)
+    public Response updateTemplate(@PathVariable("tid") Long templateId,
+                                   @RequestBody JSONObject request) throws BaseException {
+        if (!templateService.updateTemplate(templateId, request.getString("tempName"), request.getString("content"))) {
+            throw new UnknownException("Update template error.");
         }
 
         return new Response(0);
     }
 
-    /**
-     * 修改模板内容
-     *
-     * @param tempId
-     * @param request
-     * @return
-     * @throws BaseException
-     */
-    @ResponseBody
-    @RequestMapping(path = "/{tid}/content", method = RequestMethod.PUT)
-    public Response updateTemplateContent(@PathVariable("tid") Long tempId,
-                                          @RequestBody JSONObject request) throws BaseException {
-        if (!templateService.updateTemplateContent(tempId, request.getString("content"))) {
-            throw new UnknownException("Update tempContent error.");
-        }
-
-        return new Response(0);
-    }
+//    /**
+//     * 修改模板名称
+//     *
+//     * @param tempId
+//     * @param request
+//     * @return
+//     * @throws BaseException
+//     */
+//    @ResponseBody
+//    @RequestMapping(path = "/{tid}/name", method = RequestMethod.PUT)
+//    public Response updateTemplateName(@PathVariable("tid") Long tempId,
+//                                       @RequestBody JSONObject request) throws BaseException {
+//        if (!templateService.updateTemplateName(tempId, request.getString("tempName"))) {
+//            throw new UnknownException("Update tempName error.");
+//        }
+//
+//        return new Response(0);
+//    }
+//
+//    /**
+//     * 修改模板内容
+//     *
+//     * @param tempId
+//     * @param request
+//     * @return
+//     * @throws BaseException
+//     */
+//    @ResponseBody
+//    @RequestMapping(path = "/{tid}/content", method = RequestMethod.PUT)
+//    public Response updateTemplateContent(@PathVariable("tid") Long tempId,
+//                                          @RequestBody JSONObject request) throws BaseException {
+//        if (!templateService.updateTemplateContent(tempId, request.getString("content"))) {
+//            throw new UnknownException("Update tempContent error.");
+//        }
+//
+//        return new Response(0);
+//    }
 
     /**
      * 删除模板

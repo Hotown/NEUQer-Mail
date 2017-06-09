@@ -8,7 +8,6 @@ import com.neuqer.mail.mapper.UserMapper;
 import com.neuqer.mail.model.Token;
 import com.neuqer.mail.model.User;
 import com.neuqer.mail.service.TokenService;
-import com.neuqer.mail.service.UserService;
 import com.neuqer.mail.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -44,14 +44,20 @@
     <!--<appender-ref ref="RequestAppender" />-->
     <!--<appender-ref ref="STDOUT" />-->
     <!--</root>-->
+
     <!--打印sql语句-->
     <logger name="com.neuqer.mail.mapper" level="ALL">
         <!--<appender-ref ref="SQLAppender" />-->
         <appender-ref ref="STDOUT"/>
     </logger>
 
-    <!--<logger name="com.neuqer.mail.interceptor.TokenInterceptor" level="DEBUG">-->
-    <!--</logger>-->
+    <logger name="com.neuqer.mail.controller" level="ALL">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <logger name="com.neuqer.mail.interceptor.CORSInterceptor" level="DEBUG">
+        <appender-ref ref="STDOUT"/>
+    </logger>
 
     <root level="INFO">
         <appender-ref ref="STDOUT"/>

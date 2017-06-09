@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public class TemplateCreateRequest {
     @NotBlank
     private String tempName;
-    @NotBlank
+
     private String content;
 
     public String getTempName() {

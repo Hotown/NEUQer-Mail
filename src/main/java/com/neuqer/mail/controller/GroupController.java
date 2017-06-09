@@ -19,6 +19,8 @@ import com.neuqer.mail.model.User;
 import com.neuqer.mail.service.GroupService;
 import com.neuqer.mail.service.ToolService;
 import com.neuqer.mail.utils.Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,13 +46,22 @@ public class GroupController {
     @Autowired
     ToolService toolService;
 
+    private Logger logger = LoggerFactory.getLogger(GroupController.class);
+
     public static final ArrayList<String> UPLOAD_FILE_TYPE = new ArrayList<String>() {{
         add(".xlsx");
         add(".xls");
     }};
     private static final long UPLOAD_FILE_MAXSIZE = 5 * 1024 * 1024;
 
-
+    /**
+     * 创建群
+     *
+     * @param httpServletRequest
+     * @param jsonRequest
+     * @return
+     * @throws BaseException
+     */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public Response createGroup(HttpServletRequest httpServletRequest, @RequestBody JSONObject jsonRequest) throws BaseException {
         User user = (User) httpServletRequest.getAttribute("user");
@@ -62,6 +74,14 @@ public class GroupController {
     }
 
 
+    /**
+     * 删除群
+     *
+     * @param groupId
+     * @param httpServletRequest
+     * @return
+     * @throws BaseException
+     */
     @Transactional
     @RequestMapping(value = "/{groupId}/delete", method = RequestMethod.DELETE)
     public Response deleteGroup(@PathVariable("groupId") Long groupId, HttpServletRequest httpServletRequest) throws BaseException {
@@ -72,7 +92,15 @@ public class GroupController {
         return new Response(0);
     }
 
-
+    /**
+     * 修改群名
+     *
+     * @param groupId
+     * @param httpServletRequest
+     * @param jsonObject
+     * @return
+     * @throws BaseException
+     */
     @RequestMapping(value = "/{groupId}/name", method = RequestMethod.PUT)
     public Response updateGroupName(@PathVariable("groupId") Long groupId, HttpServletRequest httpServletRequest,
                                     @RequestBody JSONObject jsonObject) throws BaseException {
@@ -85,7 +113,15 @@ public class GroupController {
         return new Response(0);
     }
 
-
+    /**
+     * 单个导入手机号
+     *
+     * @param groupId
+     * @param jsonRequest
+     * @param httpServletRequest
+     * @return
+     * @throws BaseException
+     */
     @Transactional
     @RequestMapping(value = "/{groupId}/mobile/addsingle", method = RequestMethod.POST)
     public Response addSingleMobile(@PathVariable("groupId") Long groupId, @RequestBody JSONObject jsonRequest,
@@ -99,6 +135,15 @@ public class GroupController {
         return new Response(0);
     }
 
+    /**
+     * 通过excel批量导入手机号
+     *
+     * @param groupId
+     * @param request
+     * @param httpServletRequest
+     * @return
+     * @throws BaseException
+     */
     @Transactional
     @RequestMapping(value = "/{groupId}/mobile/addmultiple", method = RequestMethod.POST)
     public Response addMultipleMobile(@PathVariable("groupId") Long groupId, @RequestBody AddMultipleRequest request,
@@ -128,6 +173,15 @@ public class GroupController {
         return new Response(0, response);
     }
 
+    /**
+     * 删除组内手机号
+     *
+     * @param groupId
+     * @param jsonRequest
+     * @param httpServletRequest
+     * @return
+     * @throws BaseException
+     */
     @Transactional
     @RequestMapping(value = "/{groupId}/mobile/delete", method = RequestMethod.DELETE)
     public Response deleteMobile(@PathVariable("groupId") Long groupId, @RequestBody JSONObject jsonRequest,
@@ -144,7 +198,14 @@ public class GroupController {
         return new Response(0);
     }
 
-
+    /**
+     * 获取群信息
+     *
+     * @param groupId
+     * @param httpServletRequest
+     * @return
+     * @throws BaseException
+     */
     @RequestMapping(value = "/{groupId}/info", method = RequestMethod.GET)
     public Response getGroupInfo(@PathVariable("groupId") Long groupId, HttpServletRequest httpServletRequest) throws BaseException {
         User user = (User) httpServletRequest.getAttribute("user");
@@ -157,6 +218,37 @@ public class GroupController {
         return new Response(0, response);
     }
 
+    /**
+     * 获取用户创建的所有群组
+     *
+     * @param request
+     * @return
+     * @throws BaseException
+     */
+    @RequestMapping(path = "/infos", method = RequestMethod.GET)
+    public Response getGroupsInfo(HttpServletRequest request) throws BaseException {
+        User user = (User) request.getAttribute("user");
+        List<Group> groups = groupService.getGroupsInfo(user.getId());
+
+        HashMap<String, List> data = new HashMap<String, List>() {{
+            put("groups", groups);
+        }};
+
+        return new Response(0, data);
+    }
+
+
+    /**
+     * 群组内查询（支持手机号和备注的模糊查询）
+     *
+     * @param groupId
+     * @param httpServletRequest
+     * @param jsonRequest
+     * @param page
+     * @param rows
+     * @return
+     * @throws BaseException
+     */
     @RequestMapping(value = "/{groupId}/search", method = RequestMethod.POST)
     public Response fuzzySearch(@PathVariable("groupId") Long groupId, HttpServletRequest httpServletRequest,
                                 @RequestBody JSONObject jsonRequest,

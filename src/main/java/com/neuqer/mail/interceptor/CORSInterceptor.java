@@ -1,5 +1,7 @@
 package com.neuqer.mail.interceptor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,11 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class CORSInterceptor implements HandlerInterceptor {
 
+    private Logger logger = LoggerFactory.getLogger(CORSInterceptor.class);
+
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        httpServletResponse.setHeader("Access-Control-Allow-Origin","*");
-        httpServletResponse.setHeader("Access-Control-Allow-Methods","POST, GET, PUT, DELETE,OPTIONS");
-        httpServletResponse.setHeader("Access-Control-Allow-Headers", "token,accept,content-type,X-Requested-With");
+        httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
+        httpServletResponse.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
+        httpServletResponse.setHeader("Access-Control-Allow-Headers", "token, accept, content-type, X-Requested-With");
         return true;
     }
 

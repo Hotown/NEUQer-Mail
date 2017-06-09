@@ -29,7 +29,7 @@ import java.util.List;
  * Created by dgy on 17-5-17.
  */
 @Service("GroupService")
-public class GroupServiceImp implements GroupService {
+public class GroupServiceImp extends BaseServiceImpl<Group, Long> implements GroupService {
 
     @Autowired
     MobileMapper mobileMapper;
@@ -154,6 +154,13 @@ public class GroupServiceImp implements GroupService {
             throw new GroupNotExistException();
         }
         return group.getGroupName();
+    }
+
+    @Override
+    public List<Group> getGroupsInfo(Long userId) throws BaseException {
+        Group group = new Group();
+        group.setUserId(userId);
+        return select(group);
     }
 
     @Override

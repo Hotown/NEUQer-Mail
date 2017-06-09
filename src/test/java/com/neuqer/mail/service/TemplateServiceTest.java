@@ -29,11 +29,11 @@ public class TemplateServiceTest extends BaseTest {
     }
 
     @Test
-    public void updateName() throws BaseException {
+    public void updateTemplate() throws BaseException {
         String tName = "TemplateTest";
-        Long tId = 1L;
+        Long tId = 7L;
 
-        templateService.updateTemplateName(tId, tName);
+        templateService.updateTemplate(tId, tName,null);
     }
 
     @Test

@@ -4,8 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.neuqer.mail.common.Response;
 import com.neuqer.mail.dto.request.LoginRequest;
 import com.neuqer.mail.dto.request.RegisterRequest;
-import com.neuqer.mail.dto.response.LoginResponse;
-import com.neuqer.mail.exception.Auth.NeedLoginException;
 import com.neuqer.mail.exception.BadRequestException;
 import com.neuqer.mail.exception.BaseException;
 import com.neuqer.mail.exception.UnknownException;
@@ -14,6 +12,8 @@ import com.neuqer.mail.model.BaseModel;
 import com.neuqer.mail.model.User;
 import com.neuqer.mail.service.UserService;
 import com.neuqer.mail.utils.EncryptionUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +31,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    private Logger logger = LoggerFactory.getLogger(UserController.class);
+
     /**
      * 用户注册
      *
@@ -42,8 +44,6 @@ public class UserController {
     @RequestMapping(path = "/register", method = RequestMethod.POST)
     public Response register(@RequestBody @Valid RegisterRequest request) throws BaseException {
         String mobile = request.getMobile();
-
-        //TODO: 创建人：罗宏涛    创建时间：20170522     验证code，由于短信系统还未开发，暂且搁置。
 
         String pwd = request.getPassword();
 
@@ -80,13 +80,12 @@ public class UserController {
     public Response logout(HttpServletRequest request) throws BaseException {
         User user = (User) request.getAttribute("user");
 
-        if(!userService.logout(user.getId())) {
+        if (!userService.logout(user.getId())) {
             throw new UnknownException();
         }
 
         return new Response(0);
     }
-
 
     /**
      * 查看个人信息
@@ -122,7 +121,7 @@ public class UserController {
      * @throws BaseException
      */
     @ResponseBody
-    @RequestMapping(path = "/{userId}/nickname", method = RequestMethod.POST)
+    @RequestMapping(path = "/nickname", method = RequestMethod.PUT)
     public Response updateNickname(@RequestBody JSONObject request, HttpServletRequest httpServletRequest) throws BaseException {
         String nickname = request.getString("nickname");
         if (nickname == null) {
@@ -146,7 +145,7 @@ public class UserController {
      * @throws BaseException
      */
     @ResponseBody
-    @RequestMapping(path = "/{userId}/password", method = RequestMethod.POST)
+    @RequestMapping(path = "/password", method = RequestMethod.PUT)
     public Response updateUserPassword(@RequestBody JSONObject request, HttpServletRequest httpServletRequest) throws BaseException {
         String originPwd = request.getString("password");
         String pwd = request.getString("newPassword");
@@ -159,7 +158,7 @@ public class UserController {
             throw new PasswordErrorException();
         }
 
-        if (!userService.updatePassword(user.getId(), EncryptionUtil.getHash(pwd, "MD5"))) {
+        if (!userService.updatePassword(user.getId(), pwd)) {
             throw new UnknownException("fail to update password");
         }
 
