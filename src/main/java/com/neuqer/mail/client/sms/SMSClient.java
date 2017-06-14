@@ -56,54 +56,54 @@ public class SMSClient implements Client {
 //                .replaceAll("\\{account\\}", account).replaceAll("\\{pswd\\}", pswd)
 //                .replaceAll("\\{mobile}", mobile).replaceAll("\\{msg\\}", message);
 
-        String url = "http://sms.253.com/msg/send?un={un}&pw={pw}&phone={phone}&msg={msg}"
+        String url = "http://sms.253.com/msg/send?un={un}&pw={pw}&phone={phone}&msg={msg}&rd=1"
                 .replaceAll("\\{un\\}", account).replaceAll("\\{pw\\}", pswd)
                 .replaceAll("\\{phone}", mobile).replaceAll("\\{msg\\}", message);
 
         System.out.println(url);
 
-//        String result = "";
-//        BufferedReader in = null;
-//
-//        try {
-//            URL realUrl = new URL(url);
-//            //打开连接
-//            URLConnection connection = realUrl.openConnection();
-//            //设置通用请求属性
-//            connection.setRequestProperty("accept", "*/*");
-//            connection.setRequestProperty("connection", "Keep-Alive");
-//            connection.setRequestProperty("user-agent",
-//                    "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
-//            //建立实际连接
-//            connection.connect();
-//            //获取所有相应头字段
-//            Map<String, List<String>> headerString = connection.getHeaderFields();
-//
-//            for (String key : headerString.keySet()) {
-//                logger.info(key + "--->" + headerString.get(key));
-//                System.out.println(key + "--->" + headerString.get(key));
-//            }
-//            //定义BufferedReader输入流来读取URL的响应
-//            in = new BufferedReader(new InputStreamReader(
-//                    connection.getInputStream()));
-//            String line;
-//            while ((line = in.readLine()) != null) {
-//                result += line;
-//            }
-//        } catch (Exception e) {
-//            System.out.println("请求异常" + e);
-//            e.printStackTrace();
-//        } finally {
-//            //关闭输入流
-//            try {
-//                if (in != null) {
-//                    in.close();
-//                }
-//            } catch (Exception e2) {
-//                e2.printStackTrace();
-//            }
-//        }
-//        return result;
-        return null;
+        String result = "";
+        BufferedReader in = null;
+
+        try {
+            URL realUrl = new URL(url);
+            //打开连接
+            URLConnection connection = realUrl.openConnection();
+            //设置通用请求属性
+            connection.setRequestProperty("accept", "*/*");
+            connection.setRequestProperty("connection", "Keep-Alive");
+            connection.setRequestProperty("user-agent",
+                    "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            //建立实际连接
+            connection.connect();
+            //获取所有相应头字段
+            Map<String, List<String>> headerString = connection.getHeaderFields();
+
+            for (String key : headerString.keySet()) {
+                logger.info(key + "--->" + headerString.get(key));
+                System.out.println(key + "--->" + headerString.get(key));
+            }
+
+            //定义BufferedReader输入流来读取URL的响应
+            in = new BufferedReader(new InputStreamReader(
+                    connection.getInputStream()));
+            String line;
+            while ((line = in.readLine()) != null) {
+                result += line + " ";
+            }
+        } catch (Exception e) {
+            System.out.println("请求异常" + e);
+            e.printStackTrace();
+        } finally {
+            //关闭输入流
+            try {
+                if (in != null) {
+                    in.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+        return result;
     }
 }

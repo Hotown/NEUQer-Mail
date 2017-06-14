@@ -5,6 +5,7 @@ import com.neuqer.mail.exception.BaseException;
 import com.neuqer.mail.model.Group;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -30,4 +31,6 @@ public interface GroupService {
     List<MobileRemark> getGroupInfo(Long groupId) throws BaseException;
 
     List<MobileRemark> fuzzySearch(Long groupId, String str, int pageNum, int pageSize) throws BaseException;
+
+    boolean sendWithGroup(Long groupId, String message)throws BaseException, IOException;
 }

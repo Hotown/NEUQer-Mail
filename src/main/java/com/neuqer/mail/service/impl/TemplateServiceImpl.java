@@ -1,5 +1,8 @@
 package com.neuqer.mail.service.impl;
 
+import com.neuqer.mail.client.ClientFactory;
+import com.neuqer.mail.client.excel.ExcelClient;
+import com.neuqer.mail.client.sms.SMSClient;
 import com.neuqer.mail.exception.BaseException;
 import com.neuqer.mail.exception.Template.TemplateNotExistException;
 import com.neuqer.mail.exception.Template.UserNotHasTemplate;
@@ -9,7 +12,10 @@ import com.neuqer.mail.service.TemplateService;
 import com.neuqer.mail.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -120,6 +126,31 @@ public class TemplateServiceImpl extends BaseServiceImpl<Template, Long> impleme
         }
 
         return deleteByPrimaryKey(templateId) == 1;
+    }
+
+    @Transactional
+    @Override
+    public boolean sendWithTemplate(Long templateId, String filePath) throws BaseException, IOException {
+        // 创建SMS客户端
+        SMSClient client = (SMSClient) ClientFactory.getClient("SMS");
+        // 创建Excel解析器
+        ExcelClient reader = new ExcelClient();
+        // results接收excel内容
+        LinkedList[] results = reader.readExcel(filePath);
+
+        String originMessage = templateMapper.selectByPrimaryKey(templateId).getContent();
+
+        for (int i = 1; i < results.length; i++) {
+            String message = originMessage;
+            for (int j = 0; j < results[i].size() - 1; j++) {
+                String regex = Integer.toString(j);
+                message = message.replaceAll("\\{" + regex + "\\}", results[i].get(j).toString());
+            }
+            String mobile = results[i].get(results[i].size() - 1).toString();
+            System.out.println(client.accountPswdMobileMsgGet(mobile, message));
+        }
+
+        return true;
     }
 }
 

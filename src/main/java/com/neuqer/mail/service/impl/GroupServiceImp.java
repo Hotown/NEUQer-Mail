@@ -1,8 +1,11 @@
 package com.neuqer.mail.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.neuqer.mail.client.ClientFactory;
+import com.neuqer.mail.client.sms.SMSClient;
 import com.neuqer.mail.domain.MobileRemark;
 import com.neuqer.mail.exception.BaseException;
+import com.neuqer.mail.exception.Client.ApiException;
 import com.neuqer.mail.exception.Group.GroupNotExistException;
 import com.neuqer.mail.exception.Group.NullKeyException;
 import com.neuqer.mail.exception.Mobile.IllegalMobileException;
@@ -22,7 +25,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -196,5 +201,27 @@ public class GroupServiceImp extends BaseServiceImpl<Group, Long> implements Gro
         PageHelper.startPage(pageNum, pageSize);
         str = "%" + str + "%";
         return groupMapper.fuzzySearch(str, groupId);
+    }
+
+    @Override
+    public boolean sendWithGroup(Long groupId, String message) throws BaseException, IOException {
+        MobileGroup mobileGroup = new MobileGroup();
+        mobileGroup.setGroupId(groupId);
+        List<MobileGroup> mobileGroupList = mobileGroupMapper.select(mobileGroup);
+        LinkedList<String> mobiles = new LinkedList<String>();
+        for (MobileGroup m : mobileGroupList) {
+            mobiles.add(mobileMapper.selectByPrimaryKey(m.getMobileId()).getMobile());
+        }
+
+        SMSClient client = (SMSClient) ClientFactory.getClient("SMS");
+        for (String mobile : mobiles) {
+            String apiResult = client.accountPswdMobileMsgGet(mobile, message);
+            int begin = apiResult.indexOf(",");
+            int end = apiResult.indexOf(" ");
+            if (!"0".equals(apiResult.substring(begin + 1 , end))) {
+                throw new ApiException();
+            }
+        }
+        return true;
     }
 }

@@ -1,5 +1,8 @@
 package com.neuqer.mail.client.excel;
 
+import com.neuqer.mail.client.Client;
+import com.neuqer.mail.client.excel.impl.XlsExcel;
+import com.neuqer.mail.client.excel.impl.XlsxExcel;
 import com.neuqer.mail.common.ExcelCommon;
 import com.neuqer.mail.exception.BaseException;
 import com.neuqer.mail.exception.File.ErrorFileTypeException;
@@ -11,9 +14,7 @@ import java.util.LinkedList;
 /**
  * Created by Hotown on 17/6/9.
  */
-public class ReadExcel {
-    //保存每个单元格的数据
-    private LinkedList[] result;
+public class ExcelClient implements Client {
 
     /**
      * 读取Excel文件
@@ -49,7 +50,7 @@ public class ReadExcel {
      * @throws IOException
      */
     public LinkedList[] readXls(String path) throws IOException {
-        return null;
+        return new XlsExcel(path).result;
     }
 
     /**
@@ -60,6 +61,6 @@ public class ReadExcel {
      * @throws IOException
      */
     public LinkedList[] readXlsx(String path) throws IOException {
-        return null;
+        return new XlsxExcel(path).result;
     }
 }

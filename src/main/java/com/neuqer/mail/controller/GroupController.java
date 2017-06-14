@@ -334,4 +334,14 @@ public class GroupController {
             throw new UnknownException(e.getMessage());
         }
     }
+
+    @ResponseBody
+    @RequestMapping("/{groupId}/send")
+    public Response sendWithGroup(@PathVariable("groupId") Long groupId,
+                                  @RequestBody JSONObject request) throws BaseException, IOException {
+        if (!groupService.sendWithGroup(groupId, request.getString("message"))) {
+            throw new UnknownException("Somthing wrong with sending system");
+        }
+        return new Response(0);
+    }
 }

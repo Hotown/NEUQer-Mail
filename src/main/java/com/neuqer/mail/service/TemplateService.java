@@ -3,6 +3,7 @@ package com.neuqer.mail.service;
 import com.neuqer.mail.exception.BaseException;
 import com.neuqer.mail.model.Template;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -25,4 +26,6 @@ public interface TemplateService extends BaseService<Template, Long> {
 //    boolean updateTemplateContent(Long templateId, String templateContent) throws BaseException;
 
     boolean deleteTemplate(Long templateId, Long userId) throws BaseException;
+
+    boolean sendWithTemplate(Long templateId, String filePath) throws BaseException, IOException;
 }
