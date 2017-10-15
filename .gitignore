@@ -1,5 +1,6 @@
 target/
 *.xlsx
+*.properties
 
 ### STS ###
 .apt_generated

@@ -30,7 +30,7 @@ public class SMSClient implements Client {
     private String pswd;
 
     public SMSClient() {
-        logger.info("=======sms client initializing...=======");
+        logger.info("======= sms client initializing... =======");
         prop = new Properties();
         InputStream in = SMSClient.class.getClassLoader().getResourceAsStream("sms.properties");
 
