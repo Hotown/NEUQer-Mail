@@ -8,6 +8,6 @@ import com.neuqer.mail.exception.BaseException;
 public class NullFileException extends BaseException{
     public NullFileException() {
         super.setCode(50001);
-        super.setMessage("文件为空");
+        super.setMessage("File is null");
     }
 }

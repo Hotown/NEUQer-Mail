@@ -9,6 +9,6 @@ import com.neuqer.mail.exception.BaseException;
 public class ErrorFileTypeException extends BaseException {
     public ErrorFileTypeException() {
         super.setCode(50002);
-        super.setMessage("文件类型错误");
+        super.setMessage("File type error");
     }
 }

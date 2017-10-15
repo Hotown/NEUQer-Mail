@@ -8,6 +8,6 @@ import com.neuqer.mail.exception.BaseException;
 public class FileSizeLimitException extends BaseException {
     public FileSizeLimitException() {
         super.setCode(50003);
-        super.setMessage("文件超限");
+        super.setMessage("File size beyond limit");
     }
 }

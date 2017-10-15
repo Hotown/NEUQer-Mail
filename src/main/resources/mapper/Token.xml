@@ -13,16 +13,4 @@
         <result column="updated_at" property="updatedAt" jdbcType="BIGINT"/>
         <result column="expired_at" property="expiredAt" jdbcType="BIGINT"/>
     </resultMap>
-
-    <select id="getTokenByUserId" resultType="com.neuqer.mail.model.Token">
-        SELECT *
-          FROM token
-        WHERE user_id = #{userId}
-    </select>
-    
-    <select id="getTokenByTokenStr" resultType="com.neuqer.mail.model.Token">
-        SELECT *
-          FROM token
-        WHERE token = #{token}
-    </select>
 </mapper>

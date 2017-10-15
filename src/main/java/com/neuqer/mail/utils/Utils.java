@@ -1,25 +1,6 @@
 package com.neuqer.mail.utils;
 
 import com.neuqer.mail.common.ExcelCommon;
-import com.neuqer.mail.domain.ExcelInfo;
-import com.neuqer.mail.exception.BaseException;
-import com.neuqer.mail.exception.File.ErrorFileTypeException;
-import com.neuqer.mail.exception.UnknownException;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 /**

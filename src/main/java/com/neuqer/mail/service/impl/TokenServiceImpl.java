@@ -3,10 +3,15 @@ package com.neuqer.mail.service.impl;
 import com.neuqer.mail.exception.Auth.NeedLoginException;
 import com.neuqer.mail.exception.Auth.TokenExpiredException;
 import com.neuqer.mail.exception.BaseException;
+import com.neuqer.mail.mapper.TokenMapper;
+import com.neuqer.mail.mapper.UserMapper;
 import com.neuqer.mail.model.Token;
+import com.neuqer.mail.model.User;
+import com.neuqer.mail.service.TokenService;
 import com.neuqer.mail.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 
 /**
@@ -25,7 +30,10 @@ public class TokenServiceImpl extends BaseServiceImpl<Token, Long> implements To
 
     @Override
     public Token getTokenByUserId(long userId) {
-        return tokenMapper.getTokenByUserId(userId);
+        Example example = new Example(Token.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("userId", userId);
+        return tokenMapper.selectByExample(example).get(0);
     }
 
     @Override
@@ -57,7 +65,11 @@ public class TokenServiceImpl extends BaseServiceImpl<Token, Long> implements To
 
     @Override
     public User verifyToken(String tokenStr) throws BaseException {
-        Token token = tokenMapper.getTokenByTokenStr(tokenStr);
+        Example example = new Example(Token.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("token", tokenStr);
+        Token token = tokenMapper.selectByExample(example).get(0);
+
         Long currentTime = Utils.createTimeStamp();
 
         if (token == null) {
@@ -69,7 +81,20 @@ public class TokenServiceImpl extends BaseServiceImpl<Token, Long> implements To
         }
 
         Long userId = token.getUserId();
-        User user = userMapper.getUserById(userId);
+        Example userExample = new Example(User.class);
+        Example.Criteria userCriteria = userExample.createCriteria();
+        userCriteria.andEqualTo("userId", userId);
+        User user = userMapper.selectByExample(userExample).get(0);
         return user;
+    }
+
+    @Override
+    public Token getTokenByTokenStr(String tokenStr) throws BaseException {
+        Example example = new Example(Token.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("token", tokenStr);
+        Token token = tokenMapper.selectByExample(example).get(0);
+
+        return token != null ? token : null;
     }
 }
