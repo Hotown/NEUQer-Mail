@@ -1,7 +1,6 @@
 package com.neuqer.mail.mapper;
 
 import com.neuqer.mail.BaseTest;
-import com.neuqer.mail.model.User;
 import com.neuqer.mail.utils.Utils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

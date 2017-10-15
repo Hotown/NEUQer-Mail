@@ -2,7 +2,6 @@ package com.neuqer.mail.service;
 
 import com.neuqer.mail.BaseTest;
 import com.neuqer.mail.exception.BaseException;
-import com.neuqer.mail.model.User;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

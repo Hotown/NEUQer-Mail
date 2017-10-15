@@ -1,7 +1,6 @@
 package com.neuqer.mail.service;
 
 import com.neuqer.mail.exception.BaseException;
-import com.neuqer.mail.model.Template;
 
 import java.io.IOException;
 import java.util.List;

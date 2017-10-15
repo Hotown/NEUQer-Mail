@@ -1,9 +1,7 @@
 package com.neuqer.mail.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.neuqer.mail.common.Response;
 import com.neuqer.mail.model.Token;
-import com.neuqer.mail.model.User;
 
 /**
  * Created by Hotown on 17/5/18.
