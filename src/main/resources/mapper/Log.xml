@@ -13,6 +13,5 @@
         <result column="status" property="status" jdbcType="TINYINT"/>
         <result column="created_at" property="createdAt" jdbcType="BIGINT"/>
         <result column="updated_at" property="updatedAt" jdbcType="BIGINT"/>
-        <result column="is_delete" property="idDelete" jdbcType="TINYINT"/>
     </resultMap>
 </mapper>

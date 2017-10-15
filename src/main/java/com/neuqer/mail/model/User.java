@@ -5,27 +5,22 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-/**
- * Created by Hotown on 17/5/15.
- */
 @Getter
 @Setter
-@Table(name = "token")
-public class Token implements BaseModel {
+@Table(name = "user")
+public class User {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long userId;
+    private String mobile;
 
-    private String token;
+    private String password;
 
-    private Integer client;
-
+    @Column(name = "created_at")
     private Long createdAt;
 
+    @Column(name = "updated_at")
     private Long updatedAt;
-
-    private Long expiredAt;
 }
