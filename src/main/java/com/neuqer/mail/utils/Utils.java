@@ -1,6 +1,8 @@
 package com.neuqer.mail.utils;
 
 import com.neuqer.mail.common.ExcelCommon;
+
+import java.io.File;
 import java.util.UUID;
 
 /**
@@ -28,5 +30,18 @@ public class Utils {
             return path.substring(path.lastIndexOf(ExcelCommon.POINT) + 1, path.length());
         }
         return ExcelCommon.EMPTY;
+    }
+
+    public static boolean deleteTempExcel(String filePath) {
+        File tempFile = new File(filePath);
+        if (!tempFile.exists()) {
+            return false;
+        } else {
+            String suffix = filePath.substring(filePath.lastIndexOf("."));
+            if (suffix.equals(".xls") || suffix.equals(".xlsx")) {
+                return tempFile.delete();
+            }
+        }
+        return false;
     }
 }

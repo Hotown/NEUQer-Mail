@@ -5,6 +5,7 @@ import com.neuqer.mail.client.excel.impl.XlsExcel;
 import com.neuqer.mail.client.excel.impl.XlsxExcel;
 import com.neuqer.mail.common.ExcelCommon;
 import com.neuqer.mail.exception.BaseException;
+import com.neuqer.mail.exception.Client.ExcelReadErrorException;
 import com.neuqer.mail.exception.File.ErrorFileTypeException;
 import com.neuqer.mail.utils.Utils;
 
@@ -31,8 +32,24 @@ public class ExcelClient implements Client {
             String postfix = Utils.getPostfix(path);
             if (!ExcelCommon.EMPTY.equals(postfix)) {
                 if (ExcelCommon.OFFICE_EXCEL_2003_POSTFIX.equals(postfix)) {
+                    LinkedList[] res = readXls(path);
+
+                    if (res == null) {
+                        throw new ExcelReadErrorException();
+                    }
+
+                    Utils.deleteTempExcel(path);
+
                     return readXls(path);
                 } else if (ExcelCommon.OFFICE_EXCEL_2010_POSTFIX.equals(postfix)) {
+                    LinkedList[] res = readXls(path);
+
+                    if (res == null) {
+                        throw new ExcelReadErrorException();
+                    }
+
+                    Utils.deleteTempExcel(path);
+
                     return readXlsx(path);
                 } else {
                     throw new ErrorFileTypeException();

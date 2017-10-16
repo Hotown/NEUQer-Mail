@@ -1,24 +1,17 @@
 package com.neuqer.mail.client.excel.impl;
 
-import com.neuqer.mail.client.excel.Excel;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.DataFormatter;
-import org.apache.poi.ss.usermodel.DateUtil;
+
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.LinkedList;
 
-/**
- * Created by Hotown on 17/6/9.
- */
-public class XlsExcel implements Excel {
+public class XlsExcel extends AbstractExcel {
     private HSSFSheet sheet;
     public LinkedList[] result;
 
@@ -27,8 +20,7 @@ public class XlsExcel implements Excel {
         init();
     }
 
-    @Override
-    public void loadExcel(String filePath) {
+    private boolean loadExcel(String filePath) {
         FileInputStream inStream = null;
         try {
             inStream = new FileInputStream(new File(filePath));
@@ -36,61 +28,21 @@ public class XlsExcel implements Excel {
             sheet = workBook.getSheetAt(0);
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         } finally {
             try {
                 if (inStream != null) {
                     inStream.close();
+                    return true;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        return false;
     }
 
-    @Override
-    public String getCellValue(Cell cell) {
-        String cellValue = "";
-        DataFormatter formatter = new DataFormatter();
-        if (cell != null) {
-            switch (cell.getCellType()) {
-                case Cell.CELL_TYPE_NUMERIC:
-                    if (DateUtil.isCellDateFormatted(cell)) {
-                        cellValue = formatter.formatCellValue(cell);
-                    } else {
-                        double value = cell.getNumericCellValue();
-                        cellValue = new DecimalFormat("#").format(value);
-                    }
-                    break;
-                case Cell.CELL_TYPE_STRING:
-                    cellValue = cell.getStringCellValue();
-                    break;
-                case Cell.CELL_TYPE_BOOLEAN:
-                    cellValue = String.valueOf(cell.getBooleanCellValue());
-                    break;
-                case Cell.CELL_TYPE_FORMULA: {
-                    try {
-                        cellValue = String.valueOf(cell.getNumericCellValue());
-                    } catch (IllegalStateException e) {
-                        cellValue = String.valueOf(cell.getRichStringCellValue());
-                    }
-                }
-                break;
-                case Cell.CELL_TYPE_BLANK:
-                    cellValue = "";
-                    break;
-                case Cell.CELL_TYPE_ERROR:
-                    cellValue = "";
-                    break;
-                default:
-                    cellValue = cell.toString().trim();
-                    break;
-            }
-        }
-        return cellValue.trim();
-    }
-
-    @Override
-    public void init() {
+    public boolean init() {
         int rowNum = sheet.getLastRowNum() + 1;
         result = new LinkedList[rowNum];
         for (int i = 0; i < rowNum; i++) {
@@ -105,5 +57,6 @@ public class XlsExcel implements Excel {
                 result[i].add(str);
             }
         }
+        return true;
     }
 }
