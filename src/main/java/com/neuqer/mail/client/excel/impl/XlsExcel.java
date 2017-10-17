@@ -1,9 +1,7 @@
 package com.neuqer.mail.client.excel.impl;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.ss.usermodel.Workbook;
 
 
 import java.io.File;
@@ -58,5 +56,20 @@ public class XlsExcel extends AbstractExcel {
             }
         }
         return true;
+    }
+
+    public HSSFWorkbook exportExcelDemo(String[] headers) {
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        HSSFSheet sheet = workbook.createSheet();
+
+        // 设置默认列宽度
+        sheet.setDefaultColumnWidth((short) 15);
+        HSSFRow row = sheet.createRow(0);
+        for (short i = 0; i < headers.length; i ++) {
+            HSSFCell cell = row.createCell(i);
+            HSSFRichTextString text = new HSSFRichTextString(headers[i]);
+            cell.setCellValue(text);
+        }
+        return workbook;
     }
 }

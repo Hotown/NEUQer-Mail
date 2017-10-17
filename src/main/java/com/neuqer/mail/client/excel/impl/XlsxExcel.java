@@ -1,10 +1,7 @@
 package com.neuqer.mail.client.excel.impl;
 
 import com.neuqer.mail.utils.Utils;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xssf.usermodel.*;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -63,5 +60,20 @@ public class XlsxExcel extends AbstractExcel {
             }
         }
         return true;
+    }
+
+    public XSSFWorkbook exportExcelDemo(String[] headers) {
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFSheet sheet = workbook.createSheet();
+
+        // 设置默认列宽度
+        sheet.setDefaultColumnWidth((short) 15);
+        XSSFRow row = sheet.createRow(0);
+        for (short i = 0; i < headers.length; i ++) {
+            XSSFCell cell = row.createCell(i);
+            XSSFRichTextString text = new XSSFRichTextString(headers[i]);
+            cell.setCellValue(text);
+        }
+        return workbook;
     }
 }
