@@ -7,5 +7,5 @@
 ## 模块
 
 + 用户系统（finsh）
-+ Excel处理（pengding...）
-+ Sms系统集成
++ Excel处理（finish）
++ Sms系统集成 (pending...)
